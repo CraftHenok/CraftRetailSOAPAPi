@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+targetNamespace="http://www.craftsoftware.com/users" 
+xmlns:tns="http://www.craftsoftware.com/users" elementFormDefault="qualified">
+	
+	<xs:element name="GetUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name= "id" type="xs:int"/>
+			</xs:sequence>	
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="GetUserResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name= "User" type="tns:User"/>
+			</xs:sequence>	
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="DeleteUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name= "id" type="xs:int"/>
+			</xs:sequence>	
+		</xs:complexType>
+	</xs:element>
+	
+    <xs:element name="DeleteUserResponse">
+		<xs:complexType>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="GetAllUsersRequest">
+		<xs:complexType>
+		</xs:complexType>
+	</xs:element>
+	
+    <xs:element name="GetAllUsersResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name= "Users" type="tns:User" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>	
+		</xs:complexType>
+	</xs:element>
+	
+    <xs:element name="UpdateUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name= "User" type="tns:User"/>
+			</xs:sequence>	
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="UpdateUserResponse">
+		<xs:complexType>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="CreateUserRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name= "CreateUser" type="tns:CreateUser"/>
+			</xs:sequence>	
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="CreateUserResponse">
+		<xs:complexType>
+		</xs:complexType>
+	</xs:element>	
+	
+	<xs:complexType name="User">
+		<xs:sequence>
+			<xs:element name="id" type="xs:int"/>
+			<xs:element name="fist" type="xs:string"/>
+			<xs:element name="last" type="xs:string"/>
+			<xs:element name="department" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="CreateUser">
+		<xs:sequence>
+			<xs:element name="fist" type="xs:string"/>
+			<xs:element name="last" type="xs:string"/>
+			<xs:element name="department" type="xs:string"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

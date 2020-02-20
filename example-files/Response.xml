@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GetCourseDetailsResponse xmlns="http://in28minutes.com/courses"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.craftsoftware.com/users user-details.xsd">
+	<UserDetails>
+		<id>123</id>
+		<first>Ted</first>
+		<last>Bear</last>
+		<department>math</department>
+	</UserDetails>
+</GetCourseDetailsResponse>
