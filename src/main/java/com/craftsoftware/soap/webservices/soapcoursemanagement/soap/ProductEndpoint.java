@@ -8,6 +8,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.craftsoftware.soap.service.ProductService;
+import com.craftsoftware.Products.CreateProduct;
 import com.craftsoftware.Products.CreateProductRequest;
 import com.craftsoftware.Products.CreateProductResponse;
 import com.craftsoftware.Products.DeleteProductRequest;
@@ -19,7 +20,7 @@ import com.craftsoftware.Products.GetProductResponse;
 import com.craftsoftware.Products.UpdateProductRequest;
 import com.craftsoftware.Products.UpdateProductResponse;
 import com.craftsoftware.models.ProductInfo;
-import com.dataaccesslayer.entity.Product
+import com.dataaccesslayer.entity.Product;
 
 @Endpoint
 public class ProductEndpoint {
@@ -30,7 +31,8 @@ public class ProductEndpoint {
 	@ResponsePayload
 	public GetProductResponse processProductDetailsRequest(@RequestPayload GetProductRequest request) {
 		GetProductResponse response = new GetProductResponse();	
-		response.setProduct(service.getProductById(request.getId()));
+		ProductInfo product = mapProduct(service.getProductById(Long.parseLong(String.valueOf(request.getId()))));
+		response.setProduct(product);
 		return response;
 	}
 	
@@ -39,7 +41,7 @@ public class ProductEndpoint {
 	public DeleteProductResponse deleteProductRequest(@RequestPayload DeleteProductRequest request) {
 		DeleteProductResponse response = new DeleteProductResponse();
 		ProductService Product = new ProductService();
-		Product.deleteProduct(request.getId());
+		Product.deleteProduct(Long.parseLong(String.valueOf(request.getId())));
 		return response;
 		
 	}
@@ -47,38 +49,45 @@ public class ProductEndpoint {
 	@PayloadRoot(namespace = "http://www.craftsoftware.com/Products", localPart = "GetAllProductsRequest")
 	@ResponsePayload
 	public GetAllProductsResponse getAllProductsRequest(@RequestPayload GetAllProductsRequest request) {
-		List<Product> Products = service.getAllProducts();
+		Iterable<Product> Products = service.getAllProducts();
 		GetAllProductsResponse response = new GetAllProductsResponse();
 		for (Product Product : Products) {
-			Product mapProduct = mapProduct(Product);
+			ProductInfo mapProduct = mapProduct(Product);
 			response.getProducts().add(mapProduct);
 		}
 		return response;
 		
 	}
 	
-	private Product mapProduct(Product Product) {
-		Product ProductDetails = new Product();
-		ProductDetails.setId(Product.getId());
-		ProductDetails.setFist(Product.getFist());
-		ProductDetails.setDepartment(Product.getDepartment());
+	private ProductInfo mapProduct(Product Product) {
+		ProductInfo ProductDetails = new ProductInfo();
+		ProductDetails.setBarCodeId(Product.getBarCodeId());
+		ProductDetails.setName(Product.getName());
+		 
 		return ProductDetails;
 	}
-	
+	private ProductInfo mapProduct(CreateProduct Product) {
+		ProductInfo ProductDetails = new ProductInfo();
+		ProductDetails.setBarCodeId(Product.getbarCodeId());
+		ProductDetails.setName(Product.getname());
+		 
+		return ProductDetails;
+	}
 	@PayloadRoot(namespace = "http://www.craftsoftware.com/Products", localPart = "UpdateProductRequest")
 	@ResponsePayload
 	public UpdateProductResponse updateProductRequest(@RequestPayload UpdateProductRequest request) {
 		UpdateProductResponse response = new UpdateProductResponse();
-		service.udpateProduct(request.getProduct());
+		service.updateProduct(request.getProduct(),Long.parseLong(request.getProduct().getBarCodeId()));
 		return response;
 		
 	}
 	
 	@PayloadRoot(namespace = "http://www.craftsoftware.com/Products", localPart = "CreateProductRequest")
 	@ResponsePayload
-	public CreateProductResponse updateProductRequest(@RequestPayload CreateProductRequest request) {
+	public CreateProductResponse createProductRequest(@RequestPayload CreateProductRequest request) {
 		CreateProductResponse response = new CreateProductResponse();
-		service.createProduct(request.getCreateProduct());
+		ProductInfo product = mapProduct(request.getCreateProduct());
+		service.createProduct(product);
 		return response;
 		
 	}

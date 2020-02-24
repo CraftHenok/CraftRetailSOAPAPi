@@ -13,8 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
+ 
 
 import com.craftsoftware.models.BillStatus;
 
@@ -114,7 +113,7 @@ public class Bill {
 	}
 
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return "";
 	}
 
 }

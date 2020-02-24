@@ -3,8 +3,7 @@ package com.craftsoftware.models;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
+ 
 
 import com.craftsoftware.models.BillStatus;
 
@@ -45,7 +44,22 @@ public class BillUpdateInfo {
 	}
 
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return "";
+	}
+
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getTotalValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getTotalCost() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -14,6 +14,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
+import com.craftsoftware.models.ProductInfo;
 
 /**
  * <p>Java class for anonymous complex type.
@@ -42,7 +43,7 @@ import javax.xml.bind.annotation.XmlType;
 public class UpdateProductRequest {
 
     @XmlElement(name = "Product", required = true)
-    protected Product Product;
+    protected ProductInfo Product;
 
     /**
      * Gets the value of the Product property.
@@ -52,7 +53,7 @@ public class UpdateProductRequest {
      *     {@link Product }
      *     
      */
-    public Product getProduct() {
+    public ProductInfo getProduct() {
         return Product;
     }
 
@@ -64,7 +65,7 @@ public class UpdateProductRequest {
      *     {@link Product }
      *     
      */
-    public void setProduct(Product value) {
+    public void setProduct(ProductInfo value) {
         this.Product = value;
     }
 

@@ -10,6 +10,8 @@ package com.craftsoftware.Products;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
+import com.craftsoftware.models.ProductInfo;
+
 
 /**
  * This object contains factory methods for each 
@@ -48,8 +50,8 @@ public class ObjectFactory {
      * Create an instance of {@link Product }
      * 
      */
-    public Product createProduct() {
-        return new Product();
+    public ProductInfo createProduct() {
+        return new ProductInfo();
     }
 
     /**

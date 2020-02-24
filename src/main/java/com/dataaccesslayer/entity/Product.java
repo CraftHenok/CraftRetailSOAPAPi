@@ -9,10 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import com.craftsoftware.models.ProductCategory;
+ 
+ 
 
 @Entity
 @Table(name = "PRODUCT_MASTER")
@@ -30,9 +28,8 @@ public class Product {
 	@NotNull
 	private String name;
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private ProductCategory productCategory;
+	@NotNull 
+	private String productCategory;
 
 	@NotNull
 	private double rate;
@@ -41,7 +38,7 @@ public class Product {
 		super();
 	}
 
-	public Product(String barCodeId, double rate, String name, ProductCategory productCategory) {
+	public Product(String barCodeId, double rate, String name, String productCategory) {
 		super();
 		this.barCodeId = barCodeId;
 		this.rate = rate;
@@ -61,7 +58,7 @@ public class Product {
 		return name;
 	}
 
-	public ProductCategory getProductCategory() {
+	public String getProductCategory() {
 		return productCategory;
 	}
 
@@ -81,7 +78,7 @@ public class Product {
 		this.name = name;
 	}
 
-	public void setProductCategory(ProductCategory productCategory) {
+	public void setProductCategory(String productCategory) {
 		this.productCategory = productCategory;
 	}
 
@@ -90,7 +87,7 @@ public class Product {
 	}
 
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return "";
 	}
 
 }

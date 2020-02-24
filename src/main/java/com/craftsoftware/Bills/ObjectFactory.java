@@ -10,6 +10,7 @@ package com.craftsoftware.Bills;
 
 import javax.xml.bind.annotation.XmlRegistry;
 
+import com.craftsoftware.models.BillUpdateInfo;
 
 /**
  * This object contains factory methods for each 
@@ -48,8 +49,8 @@ public class ObjectFactory {
      * Create an instance of {@link Bill }
      * 
      */
-    public Bill createBill() {
-        return new Bill();
+    public BillUpdateInfo createBill() {
+        return new BillUpdateInfo();
     }
 
     /**

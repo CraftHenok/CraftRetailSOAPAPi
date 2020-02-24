@@ -8,6 +8,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import com.craftsoftware.soap.service.BillService;
+import com.craftsoftware.Bills.CreateBill;
 import com.craftsoftware.Bills.CreateBillRequest;
 import com.craftsoftware.Bills.CreateBillResponse;
 import com.craftsoftware.Bills.DeleteBillRequest;
@@ -29,7 +30,7 @@ public class BillEndpoint {
 	@ResponsePayload
 	public GetBillResponse processBillDetailsRequest(@RequestPayload GetBillRequest request) {
 		GetBillResponse response = new GetBillResponse();	
-		response.setBill(service.findBill(request.getId()));
+		response.setBill(service.getBillById(Long.parseLong(String.valueOf(request.getId()))));
 		return response;
 	}
 	
@@ -38,7 +39,7 @@ public class BillEndpoint {
 	public DeleteBillResponse deleteBillRequest(@RequestPayload DeleteBillRequest request) {
 		DeleteBillResponse response = new DeleteBillResponse();
 		BillService Bill = new BillService();
-		Bill.deleteBill(request.getId());
+		Bill.deleteBill(Long.parseLong(String.valueOf(request.getId())));
 		return response;
 		
 	}
@@ -46,29 +47,35 @@ public class BillEndpoint {
 	@PayloadRoot(namespace = "http://www.craftsoftware.com/Bills", localPart = "GetAllBillsRequest")
 	@ResponsePayload
 	public GetAllBillsResponse getAllBillsRequest(@RequestPayload GetAllBillsRequest request) {
-		List<Bill> Bills = service.getAllBills();
+		Iterable<Bill> Bills = service.getAllBills();
 		GetAllBillsResponse response = new GetAllBillsResponse();
 		for (Bill Bill : Bills) {
-			Bill mapBill = mapBill(Bill);
-			response.getBills().add(mapBill);
+		 	response.getBills().add(Bill);
 		}
 		return response;
 		
 	}
 	
-	private Bill mapBill(Bill Bill) {
+	private Bill mapBill(CreateBill Bill) {
 		Bill BillDetails = new Bill();
 		BillDetails.setId(Bill.getId());
-		BillDetails.setFist(Bill.getFist());
-		BillDetails.setDepartment(Bill.getDepartment());
+		BillDetails.setTotalValue(Bill.getTotalValue());
+		BillDetails.setTotalCost(Bill.getTotalCost());
 		return BillDetails;
 	}
-	
+	private BillUpdateInfo mapBillInfo(Bill Bill) {
+		BillUpdateInfo BillDetails = new BillUpdateInfo();
+	//	BillDetails.setId(Bill.getId());
+	//	BillDetails.setTotalValue(Bill.getTotalValue());
+	//	BillDetails.setTotalCost(Bill.getTotalCost());
+		return BillDetails;
+	}
 	@PayloadRoot(namespace = "http://www.craftsoftware.com/Bills", localPart = "UpdateBillRequest")
 	@ResponsePayload
 	public UpdateBillResponse updateBillRequest(@RequestPayload UpdateBillRequest request) {
 		UpdateBillResponse response = new UpdateBillResponse();
-		service.udpateBill(request.getBill());
+		BillUpdateInfo bill = mapBillInfo(request.getBill());
+	//	service.udpateBill(bill,Long.parseLong(String.valueOf(request.getBill().getId())));
 		return response;
 		
 	}
@@ -77,7 +84,7 @@ public class BillEndpoint {
 	@ResponsePayload
 	public CreateBillResponse updateBillRequest(@RequestPayload CreateBillRequest request) {
 		CreateBillResponse response = new CreateBillResponse();
-		service.createBill(request.getCreateBill());
+		service.createBill(mapBill(request.getCreateBill()));
 		return response;
 		
 	}

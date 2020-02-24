@@ -7,8 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
+ 
 
 @Entity
 @Table(name = "LINE_ITEM")
@@ -58,7 +57,7 @@ public class LineItem {
 	}
 
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return "";
 	}
 
 }

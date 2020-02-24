@@ -122,4 +122,20 @@ public class CreateBill {
         this.department = value;
     }
 
+	public long getId() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getTotalValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getTotalCost() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	 
 }

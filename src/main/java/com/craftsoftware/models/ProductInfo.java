@@ -4,10 +4,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
-
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
-import com.craftsoftware.models.ProductCategory;
+  
 
 public class ProductInfo {
 
@@ -17,9 +14,8 @@ public class ProductInfo {
 	@NotNull
 	private String name;
 
-	@NotNull
-	@Enumerated(EnumType.STRING)
-	private ProductCategory productCategory;
+	@NotNull 
+	private String productCategory;
 
 	@NotNull
 	@DecimalMin(value = "0.1")
@@ -29,7 +25,7 @@ public class ProductInfo {
 		super();
 	}
 
-	public ProductInfo(String barCodeId, double rate, String name, ProductCategory productCategory) {
+	public ProductInfo(String barCodeId, double rate, String name, String productCategory) {
 		super();
 		this.barCodeId = barCodeId;
 		this.name = name;
@@ -47,7 +43,7 @@ public class ProductInfo {
 	public String getDescription() {
 		return name;
 	}
-	public ProductCategory getProductCategory() {
+	public String getProductCategory() {
 		return productCategory;
 	}
 
@@ -63,7 +59,7 @@ public class ProductInfo {
 		this.name = name;
 	}
 
-	public void setProductCategory(ProductCategory productCategory) {
+	public void setProductCategory(String productCategory) {
 		this.productCategory = productCategory;
 	}
 
@@ -72,7 +68,7 @@ public class ProductInfo {
 	}
 
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this);
+		return "";
 	}
 
 }

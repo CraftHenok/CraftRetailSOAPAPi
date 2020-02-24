@@ -15,8 +15,7 @@ import com.dataaccesslayer.repository.LineItemRepository;
 import com.dataaccesslayer.repository.BillRepository;
 import com.dataaccesslayer.repository.ProductRepository; 
 import com.craftsoftware.models.BillUpdateInfo;
-import com.craftsoftware.models.ProductInfoForBill;
-import com.craftsoftware.models.ProductCategory;
+import com.craftsoftware.models.ProductInfoForBill; 
 
 @Service
 public class BillService {
@@ -100,18 +99,12 @@ public class BillService {
 		billRepo.save(bill);
 	}
 
-	private double computeValueForItem(long quantity, ProductCategory productCategory, double rate) {
+	private double computeValueForItem(long quantity, String productCategory, double rate) {
 		//logger.debug("productCategory : " + productCategory + "  quantity = " + quantity + "  rate = " + rate);
 		double saleValue = 0;
-		if (productCategory.equals(ProductCategory.A)) {
-			saleValue = quantity * rate * 1.1; // 10% levy
+	 		saleValue = quantity * rate * 1.1; // 10% levy
 
-		} else if (productCategory.equals(ProductCategory.B)) {
-			saleValue = quantity * rate * 1.2; // 10% levy
-
-		} else if (productCategory.equals(ProductCategory.C)) {
-			saleValue = quantity * rate;
-		}
+		 
 		return saleValue;
 	}
 
