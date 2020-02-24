@@ -31,7 +31,7 @@ public class ProductEndpoint {
 	@ResponsePayload
 	public GetProductResponse processProductDetailsRequest(@RequestPayload GetProductRequest request) {
 		GetProductResponse response = new GetProductResponse();	
-		ProductInfo product = mapProduct(service.getProductById(Long.parseLong(String.valueOf(request.getId()))));
+		Product product = service.getProductById(Long.parseLong(String.valueOf(request.getId())));
 		response.setProduct(product);
 		return response;
 	}
@@ -51,9 +51,8 @@ public class ProductEndpoint {
 	public GetAllProductsResponse getAllProductsRequest(@RequestPayload GetAllProductsRequest request) {
 		Iterable<Product> Products = service.getAllProducts();
 		GetAllProductsResponse response = new GetAllProductsResponse();
-		for (Product Product : Products) {
-			ProductInfo mapProduct = mapProduct(Product);
-			response.getProducts().add(mapProduct);
+		for (Product product : Products) {
+		 	response.getProducts().add(product);
 		}
 		return response;
 		
@@ -68,16 +67,15 @@ public class ProductEndpoint {
 	}
 	private ProductInfo mapProduct(CreateProduct Product) {
 		ProductInfo ProductDetails = new ProductInfo();
-		ProductDetails.setBarCodeId(Product.getbarCodeId());
-		ProductDetails.setName(Product.getname());
-		 
-		return ProductDetails;
+		ProductDetails.setBarCodeId(Product.getBarcode());
+		ProductDetails.setName(Product.getName());
+	 return ProductDetails;
 	}
 	@PayloadRoot(namespace = "http://www.craftsoftware.com/Products", localPart = "UpdateProductRequest")
 	@ResponsePayload
 	public UpdateProductResponse updateProductRequest(@RequestPayload UpdateProductRequest request) {
 		UpdateProductResponse response = new UpdateProductResponse();
-		service.updateProduct(request.getProduct(),Long.parseLong(request.getProduct().getBarCodeId()));
+		service.updateProduct(request.getProduct(),Long.parseLong(String.valueOf(request.getProduct().getId())));
 		return response;
 		
 	}

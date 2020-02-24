@@ -65,7 +65,7 @@ public class ProductService {
 		return productRepo.findOne(id);
 	}
 
-	public Product updateProduct(ProductInfo productInfo, Long id) {
+	public Product updateProduct(Product productInfo, Long id) {
 		verifyProductExists(id);
 		Product product = productRepo.findOne(id);
 		product.setBarCodeId(productInfo.getBarCodeId());
