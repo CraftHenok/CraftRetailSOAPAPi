@@ -1,7 +1,8 @@
 package com.craftsoftware.soap.service;
 
 import java.util.List;
- 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +35,7 @@ public class ProductService {
 		product.setRate(productInfo.getRate());
 
 		product = productRepo.save(product);
-		//logger.info("Created product with id = " + product.getId());
+		//logger.info("Created product with id = " + product.get().getId());
 		return product;
 
 	}
@@ -42,8 +43,8 @@ public class ProductService {
 	public void deleteProduct(Long id) {
 		verifyProductExists(id);
 		verifyLineItemExists(id);
-		Product product = productRepo.findOne(id);
-		productRepo.delete(product);
+		Optional<Product> product = productRepo.findById(id);
+		productRepo.delete(product.get());
 	}
 
 	private void verifyLineItemExists(Long id) {
@@ -60,20 +61,20 @@ public class ProductService {
 		return products;
 	}
 
-	public Product getProductById(Long id) {
+	public Optional<Product> getProductById(Long id) {
 		verifyProductExists(id);
-		return productRepo.findOne(id);
+		return productRepo.findById(id);
 	}
 
 	public Product updateProduct(Product productInfo, Long id) {
 		verifyProductExists(id);
-		Product product = productRepo.findOne(id);
-		product.setBarCodeId(productInfo.getBarCodeId());
-		product.setName(productInfo.getName());
-		product.setProductCategory(productInfo.getProductCategory());
-		product.setRate(productInfo.getRate());
-		Product p = productRepo.save(product);
-		//logger.info("updated product id = " + product.getId());
+		Optional<Product> product = productRepo.findById(id);
+		product.get().setBarCodeId(productInfo.getBarCodeId());
+		product.get().setName(productInfo.getName());
+		product.get().setProductCategory(productInfo.getProductCategory());
+		product.get().setRate(productInfo.getRate());
+		Product p = productRepo.save(product.get());
+		//logger.info("updated product id = " + product.get().getId());
 		return p;
 	}
 
@@ -86,7 +87,7 @@ public class ProductService {
 
 	private void verifyProductExists(Long id) {
 		//logger.info("Verifying if the product exists with an id = " + id);
-		Product product = productRepo.findOne(id);
+		Optional<Product> product = productRepo.findById(id);
 		if (product == null) {
 	 	}
 	}

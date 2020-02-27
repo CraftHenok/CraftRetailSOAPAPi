@@ -9,6 +9,5 @@ import com.dataaccesslayer.entity.ProductCategory;
 public interface ProductCategoryRepository extends CrudRepository<ProductCategory, Long> {
 
 	public long count();
-	public ProductCategory findOne( Long Id); 
-
+ 
 }

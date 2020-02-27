@@ -1,7 +1,8 @@
 package com.craftsoftware.soap.service;
 
 import java.util.List;
- 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,8 +36,8 @@ public class ProductCategoryService {
 
 	public void deleteProductCategory(Long id) {
 	 
-		ProductCategory product = productRepo.findOne(id);
-		productRepo.delete(product);
+		Optional<ProductCategory> product = productRepo.findById(id);
+		productRepo.delete(product.get());
 	}
 
  
@@ -50,15 +51,15 @@ public class ProductCategoryService {
 		return products;
 	}
 
-	public ProductCategory getProductCategoryById(Long id) {
-	 	return productRepo.findOne(id);
+	public Optional<ProductCategory> getProductCategoryById(Long id) {
+	 	return productRepo.findById(id);
 	}
 
-	public ProductCategory updateProductCategory(ProductCategory productInfo, Long id) {
-		 	ProductCategory product = productRepo.findOne(id);
-		 	product.setName(productInfo.getName());
+	public ProductCategory updateProductCategory(com.craftsoftware.retail.ProductCategory productCategory, long l) {
+		 	Optional<ProductCategory> product = productRepo.findById(l);
+		 	product.get().setName(productCategory.getName());
 		 
-		ProductCategory p = productRepo.save(product);
+		ProductCategory p = productRepo.save(product.get());
 		//logger.info("updated product id = " + product.getId());
 		return p;
 	}

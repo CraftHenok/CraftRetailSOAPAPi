@@ -2,31 +2,22 @@ package com.craftsoftware.soap.webservices.soapcoursemanagement.soap;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import com.craftsoftware.soap.service.BillService;
-import com.craftsoftware.Bills.CreateBill;
-import com.craftsoftware.Bills.CreateBillRequest;
-import com.craftsoftware.Bills.CreateBillResponse;
-import com.craftsoftware.Bills.DeleteBillRequest;
-import com.craftsoftware.Bills.DeleteBillResponse;
-import com.craftsoftware.Bills.GetAllBillsRequest;
-import com.craftsoftware.Bills.GetAllBillsResponse;
-import com.craftsoftware.Bills.GetBillRequest;
-import com.craftsoftware.Bills.GetBillResponse;
-import com.craftsoftware.Bills.UpdateBillRequest;
-import com.craftsoftware.Bills.UpdateBillResponse; 
+import com.craftsoftware.soap.service.BillService; 
+import com.craftsoftware.retail.*; 
 import com.craftsoftware.models.BillUpdateInfo;
 import com.dataaccesslayer.entity.Bill;
 @Endpoint
 public class BillEndpoint {
-	
-	BillService service = new BillService();
+	 @Autowired
+	 public BillService service;
 
-	@PayloadRoot(namespace = "http://www.craftsoftware.com/Bills", localPart = "GetBillRequest")
+	@PayloadRoot(namespace = "http://www.craftsoftware.com/retail", localPart = "GetBillRequest")
 	@ResponsePayload
 	public GetBillResponse processBillDetailsRequest(@RequestPayload GetBillRequest request) {
 		GetBillResponse response = new GetBillResponse();	
@@ -34,7 +25,7 @@ public class BillEndpoint {
 		return response;
 	}
 	
-	@PayloadRoot(namespace = "http://www.craftsoftware.com/Bills", localPart = "DeleteBillRequest")
+	@PayloadRoot(namespace = "http://www.craftsoftware.com/retail", localPart = "DeleteBillRequest")
 	@ResponsePayload
 	public DeleteBillResponse deleteBillRequest(@RequestPayload DeleteBillRequest request) {
 		DeleteBillResponse response = new DeleteBillResponse();
@@ -44,7 +35,7 @@ public class BillEndpoint {
 		
 	}
 	
-	@PayloadRoot(namespace = "http://www.craftsoftware.com/Bills", localPart = "GetAllBillsRequest")
+	@PayloadRoot(namespace = "http://www.craftsoftware.com/retail", localPart = "GetAllBillsRequest")
 	@ResponsePayload
 	public GetAllBillsResponse getAllBillsRequest(@RequestPayload GetAllBillsRequest request) {
 		Iterable<Bill> Bills = service.getAllBills();
@@ -59,28 +50,28 @@ public class BillEndpoint {
 	private Bill mapBill(CreateBill Bill) {
 		Bill BillDetails = new Bill();
 		BillDetails.setId(Bill.getId());
-		BillDetails.setTotalValue(Bill.getTotalValue());
-		BillDetails.setTotalCost(Bill.getTotalCost());
+	//	BillDetails.setTotalValue(Bill.getTotalValue());
+	//	BillDetails.setTotalCost(Bill.getTotalCost());
 		return BillDetails;
 	}
-	private BillUpdateInfo mapBillInfo(Bill Bill) {
+	private BillUpdateInfo mapBillInfo(com.craftsoftware.retail.Bill bill) {
 		BillUpdateInfo BillDetails = new BillUpdateInfo();
 	//	BillDetails.setId(Bill.getId());
 	//	BillDetails.setTotalValue(Bill.getTotalValue());
 	//	BillDetails.setTotalCost(Bill.getTotalCost());
 		return BillDetails;
 	}
-	@PayloadRoot(namespace = "http://www.craftsoftware.com/Bills", localPart = "UpdateBillRequest")
+	@PayloadRoot(namespace = "http://www.craftsoftware.com/retail", localPart = "UpdateBillRequest")
 	@ResponsePayload
 	public UpdateBillResponse updateBillRequest(@RequestPayload UpdateBillRequest request) {
 		UpdateBillResponse response = new UpdateBillResponse();
 		BillUpdateInfo bill = mapBillInfo(request.getBill());
-	//	service.udpateBill(bill,Long.parseLong(String.valueOf(request.getBill().getId())));
+	 service.udpateBill(bill,Long.parseLong(String.valueOf(request.getBill().getId())));
 		return response;
 		
 	}
 	
-	@PayloadRoot(namespace = "http://www.craftsoftware.com/Bills", localPart = "CreateBillRequest")
+	@PayloadRoot(namespace = "http://www.craftsoftware.com/retail", localPart = "CreateBillRequest")
 	@ResponsePayload
 	public CreateBillResponse updateBillRequest(@RequestPayload CreateBillRequest request) {
 		CreateBillResponse response = new CreateBillResponse();

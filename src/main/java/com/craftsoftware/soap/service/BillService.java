@@ -222,4 +222,9 @@ public class BillService {
 		return productsByBarCodeID.get(0);
 	}
 
+	public void udpateBill(BillUpdateInfo bill, long parseLong) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
