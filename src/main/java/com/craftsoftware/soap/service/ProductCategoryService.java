@@ -55,7 +55,7 @@ public class ProductCategoryService {
 	 	return productRepo.findById(id);
 	}
 
-	public ProductCategory updateProductCategory(com.craftsoftware.retail.ProductCategory productCategory, long l) {
+	public ProductCategory updateProductCategory(ProductCategory productCategory, long l) {
 		 	Optional<ProductCategory> product = productRepo.findById(l);
 		 	product.get().setName(productCategory.getName());
 		 

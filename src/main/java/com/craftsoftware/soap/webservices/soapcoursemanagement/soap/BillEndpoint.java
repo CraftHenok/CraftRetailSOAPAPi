@@ -54,7 +54,7 @@ public class BillEndpoint {
 	//	BillDetails.setTotalCost(Bill.getTotalCost());
 		return BillDetails;
 	}
-	private BillUpdateInfo mapBillInfo(com.craftsoftware.retail.Bill bill) {
+	private BillUpdateInfo mapBillInfo(Bill bill) {
 		BillUpdateInfo BillDetails = new BillUpdateInfo();
 	//	BillDetails.setId(Bill.getId());
 	//	BillDetails.setTotalValue(Bill.getTotalValue());
